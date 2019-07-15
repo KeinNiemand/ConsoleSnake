@@ -41,8 +41,6 @@ namespace KonsolenSnake
         {
             Move();
             CheckCollision();
-
-            
         }
 
         internal virtual void Move()
@@ -72,14 +70,10 @@ namespace KonsolenSnake
                 bool yCollision = (currentGameObject.y == y);
                 if (xCollision && yCollision && currentGameObject != this && currentGameObject != null)
                 {
-                    if (OnCollision != null)
-                        OnCollision(currentGameObject, new EventArgs());
+                    OnCollision?.Invoke(currentGameObject, new EventArgs());
                     //gameObject.OnCollision(this, new EventArgs());
                 }
             }
         }
-
-        
-        
     }
 }

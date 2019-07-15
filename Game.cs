@@ -115,6 +115,8 @@ namespace KonsolenSnake
             SnakeHead snake = new SnakeHead((short)(FieldWidth / 2), (short)(FieldHeight / 2), this);
             snake.Death += GameOverHandler;
             gameObjects.Add(snake);
+            EnemySnake evilSnake = new EnemySnake(10, 10, this);
+            gameObjects.Add(evilSnake);
             //Create First Food
             generateFood();
         }

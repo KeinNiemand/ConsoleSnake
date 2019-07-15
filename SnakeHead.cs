@@ -54,18 +54,19 @@ namespace KonsolenSnake
 
         private void HandleCollision(object sender, EventArgs e)
         {
+            //Eat Food when coliding with it
             if (sender.GetType() == typeof(Food))
             {
-                eatFood((Food)sender);
+                EatFood((Food)sender);
             }
-            else if (sender.GetType() == typeof(SnakeTailPiece))
+            //Die when colliding with TailPiece or EnemySnakeHead
+            else if (sender.GetType() == typeof(SnakeTailPiece) || sender.GetType() == typeof(EnemySnake))
             {
-                if (Death != null)
-                    Death(this, new EventArgs());
+                Death?.Invoke(this, new EventArgs());
             }
         }
 
-        private void eatFood(Food foodObject)
+        private void EatFood(Food foodObject)
         {
             game.gameObjects.Remove(foodObject);
             game.generateFood();
@@ -73,7 +74,7 @@ namespace KonsolenSnake
             ExtendTail();
         }
 
-        private void ExtendTail()
+        internal void ExtendTail()
         {
             SnakeTailPiece newPiece;
             if (lastSnakeTailPiece == null)
