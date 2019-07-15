@@ -84,10 +84,26 @@ namespace KonsolenSnake
         private void DrawWalls()
         {
             const char HORIZWALLCHAR = '─';
+            const char VERTWALLCHAR = '│';
+            const char CORNERCHAR = '┘';
             if (FieldHeight + 1 < Console.BufferHeight)
             {
                 Console.SetCursorPosition(0, FieldHeight + 1);
                 Console.WriteLine("".PadRight(FieldWidth, HORIZWALLCHAR));
+            }
+            if (FieldWidth <= Console.BufferWidth)
+            {
+                for (int y = 0; y <= FieldHeight; y++)
+                {
+                    Console.SetCursorPosition(FieldWidth, y);
+                    Console.Write(VERTWALLCHAR);
+                }
+            }
+
+            if ((FieldHeight + 1 < Console.BufferHeight) && (FieldWidth <= Console.BufferWidth))
+            {
+                Console.SetCursorPosition(FieldWidth, FieldHeight + 1);
+                Console.Write(CORNERCHAR);
             }
         }
 
