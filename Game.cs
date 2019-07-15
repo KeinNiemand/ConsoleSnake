@@ -86,12 +86,14 @@ namespace KonsolenSnake
             const char HORIZWALLCHAR = '─';
             const char VERTWALLCHAR = '│';
             const char CORNERCHAR = '┘';
-            if (FieldHeight + 1 < Console.BufferHeight)
+            bool heightCheck = FieldHeight + 1 < Console.BufferHeight;
+            bool widthCheck = FieldWidth < Console.BufferWidth;
+            if (heightCheck)
             {
                 Console.SetCursorPosition(0, FieldHeight + 1);
                 Console.WriteLine("".PadRight(FieldWidth, HORIZWALLCHAR));
             }
-            if (FieldWidth <= Console.BufferWidth)
+            if (widthCheck)
             {
                 for (int y = 0; y <= FieldHeight; y++)
                 {
@@ -100,7 +102,7 @@ namespace KonsolenSnake
                 }
             }
 
-            if ((FieldHeight + 1 < Console.BufferHeight) && (FieldWidth <= Console.BufferWidth))
+            if (heightCheck && widthCheck)
             {
                 Console.SetCursorPosition(FieldWidth, FieldHeight + 1);
                 Console.Write(CORNERCHAR);
