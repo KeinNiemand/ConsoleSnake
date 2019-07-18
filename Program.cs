@@ -23,6 +23,7 @@ namespace KonsolenSnake
             {
                 Console.OutputEncoding = UTF8Encoding.UTF8;
                 Game snakeGame = new Game(short.Parse(args[0]),short.Parse(args[1]),ushort.Parse(args[2]),bool.Parse(args[3]));
+                snakeGame.gameLoop();
             }
 
         }
