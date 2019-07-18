@@ -19,18 +19,26 @@ namespace KonsolenSnake
             gameObjects = new List<GameObject>();
             initGame();
         }
+        public Game(short FieldWidth, short FieldHeight, ushort fps, bool enableEnemy)
+        {
+            this.FieldHeight = FieldHeight;
+            this.FieldWidth = FieldWidth;
+            this.fps = fps;
+            gameObjects = new List<GameObject>();
+            initGame(enableEnemy);
+        }
         public ushort Score { get; set; }
         private bool GameOver { get; set; } = false;
         public void gameLoop()
         {
-            while(!GameOver)
+            while (!GameOver)
             {
                 getInput();
                 doFrame();
                 Draw();
                 DrawWalls();
                 DrawUI();
-                Thread.Sleep(new TimeSpan((10L*1000L*1000L)/fps));
+                Thread.Sleep(new TimeSpan((10L * 1000L * 1000L) / fps));
             }
             ShowGameOverScreen();
         }
@@ -45,12 +53,12 @@ namespace KonsolenSnake
                     gameObject.GetInputs(pressedKey);
                 }
             }
-            
+
         }
 
         private void doFrame()
         {
-            for (int i = 0; i<gameObjects.Count; i++)
+            for (int i = 0; i < gameObjects.Count; i++)
             {
                 GameObject gameObject = gameObjects[i];
                 gameObject.DoFrame();
@@ -74,7 +82,7 @@ namespace KonsolenSnake
 
         private void DrawUI()
         {
-            if (FieldHeight+2 < Console.BufferHeight)
+            if (FieldHeight + 2 < Console.BufferHeight)
             {
                 Console.SetCursorPosition(0, FieldHeight + 2);
                 Console.WriteLine($"Score:\t{Score}");
@@ -111,20 +119,30 @@ namespace KonsolenSnake
 
         private void initGame()
         {
+            initGame(false);
+        }
+
+        private void initGame(bool enableEnemy)
+        {
             //Create SnakeHead
             SnakeHead snake = new SnakeHead((short)(FieldWidth / 2), (short)(FieldHeight / 2), this);
             snake.Death += GameOverHandler;
             gameObjects.Add(snake);
             Random rng = new Random();
-            EnemySnake evilSnake = new EnemySnake((short)rng.Next(0,FieldWidth), (short)rng.Next(0,FieldHeight), this);
-            gameObjects.Add(evilSnake);
+            if (enableEnemy)
+            {
+                EnemySnake evilSnake = new EnemySnake((short)rng.Next(0, FieldWidth), (short)rng.Next(0, FieldHeight), this);
+                gameObjects.Add(evilSnake);
+            }
+
             //Create First Food
             generateFood();
         }
+
         public void generateFood()
         {
             Random rng = new Random();
-            gameObjects.Add(new Food((short)rng.Next(0,FieldWidth), (short)rng.Next(0,FieldHeight), this));
+            gameObjects.Add(new Food((short)rng.Next(0, FieldWidth), (short)rng.Next(0, FieldHeight), this));
         }
 
         private void GameOverHandler(object sender, EventArgs e)
