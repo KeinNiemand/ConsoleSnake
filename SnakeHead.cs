@@ -66,7 +66,7 @@ namespace KonsolenSnake
             }
         }
 
-        private void EatFood(Food foodObject)
+        internal virtual void EatFood(Food foodObject)
         {
             game.gameObjects.Remove(foodObject);
             game.generateFood();

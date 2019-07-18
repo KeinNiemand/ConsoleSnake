@@ -71,7 +71,7 @@ namespace KonsolenSnake
                 if (xCollision && yCollision && currentGameObject != this && currentGameObject != null)
                 {
                     OnCollision?.Invoke(currentGameObject, new EventArgs());
-                    //gameObject.OnCollision(this, new EventArgs());
+                    //gameObject.OnCollision(this,new EventArgs());
                 }
             }
         }

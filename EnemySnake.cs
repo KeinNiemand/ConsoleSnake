@@ -66,5 +66,12 @@ namespace KonsolenSnake
                 }
             }
         }
+
+        internal override void EatFood(Food foodObject)
+        {
+            game.gameObjects.Remove(foodObject);
+            game.generateFood();
+            ExtendTail();
+        }
     }
 }
